@@ -38,6 +38,14 @@ find <targetdir> -follow -name "pattern" | sort | xargs zcat -f
 # Handle files with spaces or whitespace in name
 find <targetdir> -follow -name "pattern" -print0 | sort -z | xargs -0 zgrep -h
 
+#########################
+########## SSH ##########
+#########################
+
+# Execute command on multiple servers with similar name
+# Note: parameter argument '02g' forces padding to at least 2 digits
+# Note: commands to be executed via ssh may need to be escaped or double escaped
+{ for i in $(seq -f "%02g" 1 8); do echo "server-name$i.server-host.domain"; done } | xargs -I % ssh %  "hostname"
 
 ##########################
 ########## SORT ##########
